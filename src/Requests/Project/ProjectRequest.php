@@ -12,15 +12,16 @@ class ProjectRequest extends AbstractRequest
      *
      * @see https://developer.atlassian.com/cloud/jira/platform/rest/#api-api-2-project-get
      *
-     * @return \GuzzleHttp\Psr7\Response
+     * @return \GuzzleHttp\Psr7\Response|array
      * @throws \Atlassian\JiraRest\Exceptions\JiraClientException
      * @throws \Atlassian\JiraRest\Exceptions\JiraNotFoundException
      * @throws \Atlassian\JiraRest\Exceptions\JiraUnauthorizedException
      * @throws \TypeError
      */
-    public function all()
+    public function all($raw = false)
     {
-        // TODO: Implement all method
+        if ($raw) return $this->execute('get', "project", []);
+        return json_decode($this->execute('get', "project", [])->getBody(), true);
     }
 
     /**
